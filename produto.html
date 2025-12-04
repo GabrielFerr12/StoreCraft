@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produto</title>
+
+    <!-- Seu CSS principal -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* ESTILOS ESPECÍFICOS DO PRODUTO (pode mover para o style.css se quiser) */
+        .product-container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 40px auto;
+            display: flex;
+            gap: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .product-image {
+            width: 45%;
+        }
+
+        .product-image img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .product-info {
+            width: 55%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: #fff;
+        }
+
+        .product-info h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 15px 0;
+            color: #32ff7e;
+        }
+
+        .buy-btn {
+            background: #32ff7e;
+            border: none;
+            padding: 14px 20px;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+
+        .buy-btn:hover {
+            background: #2ecc71;
+        }
+
+        /* botão voltar */
+        .back {
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .back a {
+            color: #fff;
+            font-size: 1.1rem;
+            text-decoration: none;
+            opacity: 0.7;
+        }
+
+        .back a:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<audio id="bgm" hidden></audio>
+
+<body onload="renderProductPage(); initCommon();">
+
+    <iframe src="player.html" style="
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:1px;
+    height:1px;
+    border:none;
+    opacity:0;
+    pointer-events:none;
+    z-index:-9999;
+  "></iframe>
+
+
+    <div class="back">
+        <a href="index.html">← Voltar</a>
+    </div>
+
+    <div class="product-container">
+
+        <div class="product-image-box">
+            <img id="productImg" src="" alt="Produto">
+        </div>
+
+
+        <div class="product-info">
+            <h1 id="productTitle">Carregando...</h1>
+
+            <p class="price" id="productPrice">R$ 0,00</p>
+
+            <p id="productDesc">
+                Descrição do produto irá aparecer aqui...
+            </p>
+
+            <button id="buyBtn" class="buy-btn">Adicionar ao Carrinho</button>
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

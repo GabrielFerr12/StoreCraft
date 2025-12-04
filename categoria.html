@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Categoria — Storecraft</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <iframe src="player.html" style="
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:1px;
+    height:1px;
+    border:none;
+    opacity:0;
+    pointer-events:none;
+    z-index:-9999;
+  "></iframe>
+
+  <audio id="bgm" hidden></audio>
+
+  <header>
+    <div class="logo">
+      <div class="brand">
+        <img src="css/ChatGPT Image 1 de dez. de 2025, 20_11_01.png" width="50px" height="50px" alt="logo">
+      </div>
+      <div>
+        <div style="font-size:14px; opacity:0.9">STORECRAFT</div>
+        <div style="font-size:12px; color:var(--muted)">Compras com segurança</div>
+      </div>
+    </div>
+
+    <div class="search-bar">
+      <input id="searchInput" type="text" placeholder="Buscar produtos...">
+      <button onclick="buscarProduto()">Buscar</button>
+    </div>
+
+    <div class="icons">
+      <a class="icon-btn" href="indexusuario.html">👤 Conta</a>
+      <a class="icon-btn" href="indexcarrinho.html">🛒 Carrinho (<span id="cartCount">0</span>)</a>
+      <a class="icon-btn" href="index.html"> 🏠 Home</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 id="catTitle" style="margin-top:18px;"></h1>
+
+    <!-- GRID: produtos da categoria serão renderizados aqui -->
+    <section id="productsGrid" class="grid" style="margin-top:12px;"></section>
+
+    <footer>© 2025 StoreCraft — ItensMedievais</footer>
+  </main>
+
+  <script src="js/script.js"></script>
+  <script>
+    // Pega o parâmetro ?cat= da URL e renderiza a grid
+    const params = new URLSearchParams(location.search);
+    const cat = (params.get('cat') || '').toLowerCase();
+
+    // Exibe o título da categoria (deixe bonito para o usuário)
+    const niceNames = {
+      cap: 'Capacetes',
+      escudo: 'Escudos',
+      armor: 'Armaduras',
+      leg: 'Perneiras',
+      boots: 'Botas',
+      sword: 'Espadas',
+      archer: 'Arcos',
+      pet: 'Pets',
+      books: 'Livros'
+    };
+    document.getElementById('catTitle').innerText = niceNames[cat] || (cat ? cat.toUpperCase() : 'Categoria');
+
+    // Chama a função existente no seu script.js para montar a grid
+    // Assumimos que renderProductsGrid(filterCategory) existe (está no seu js original adaptado)
+    if (typeof renderProductsGrid === 'function') {
+      renderProductsGrid(cat);
+    } else {
+      // fallback: se falta a função, monta manualmente filtrando PRODUCTS
+      const grid = document.getElementById('productsGrid');
+      if (window.PRODUCTS && grid) {
+        const filtered = PRODUCTS.filter(p => p.category === cat);
+        grid.innerHTML = filtered.map(p => `
+          <div class="card" onclick="location.href='produto.html?id=${p.id}'">
+            <img src="${p.img}" alt="${p.title}">
+            <div class="title">${p.title}</div>
+            <div class="price"><img src="https://iili.io/HRYT1UP.png" alt=""> R$ ${p.price.toFixed(2)}</div>
+            <div style="display:flex;gap:8px;margin-top:8px;">
+              <button class="buy-btn" onclick="event.stopPropagation(); addToCart('${p.id}')">Adicionar</button>
+              <a class="icon-btn" style="text-decoration:none" href="produto.html?id=${p.id}">Ver</a>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    // garante que o contador do carrinho seja atualizado (se função disponível)
+    if (typeof updateCartCount === 'function') updateCartCount();
+  </script>
+  
+
+</body>
+
+</html>

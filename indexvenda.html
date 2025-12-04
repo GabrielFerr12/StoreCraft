@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Produto — Storecraft</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <iframe src="player.html" style="
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:1px;
+  height:1px;
+  border:none;
+  opacity:0;
+  pointer-events:none;
+"></iframe>
+
+<audio id="bgm" hidden></audio>
+
+<header>
+  <div class="logo">
+    <div class="brand"><img src="css/ChatGPT Image 1 de dez. de 2025, 20_11_01.png" width="50px" height="50px"></div>
+    <div>
+      <div style="font-size:14px; opacity:0.9">STORECRAFT</div>
+      <div style="font-size:12px; color:var(--muted)">Compras com segurança</div>
+    </div>
+  </div>
+
+  <div class="search-bar">
+    <input id="searchInput" type="text" placeholder="Buscar produtos...">
+    <button onclick="buscarProduto()">Buscar</button>
+  </div>
+
+  <div class="icons">
+    <a class="icon-btn" href="indexusuario.html">👤 Conta</a>
+    <a class="icon-btn" href="indexcarrinho.html">🛒 Carrinho</a>
+    <a class="icon-btn" href="index.html"> 🏠 Home</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- CARD DE PRODUTO COM DETALHES -->
+  <section class="product-page">
+
+    <div class="product-display">
+
+      <div class="product-image-box">
+        <img src="img/prod_exemplo.jpg" alt="Produto">
+      </div>
+
+      <div class="product-info-box">
+        <h1 class="product-title">Nome do Produto Exemplo</h1>
+
+        <p class="product-description">
+          Este produto oferece excelente qualidade, durabilidade e design moderno.
+          Ideal para uso diário e feito com materiais premium.
+        </p>
+
+        <div class="product-price">
+          <img src="https://iili.io/HRYT1UP.png"> 199,90
+        </div>
+
+        <button class="buy-btn" onclick="addToCart('produto_exemplo')">
+          Adicionar ao Carrinho
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <footer>© 2025 Storecraft — Design atualizado</footer>
+</main>
+
+<script src="js/script.js"></script>
+
+<style>
+/* Estilo exclusivo da página de produto, usando seu tema */
+
+.product-page {
+  margin-top: 35px;
+}
+
+.product-display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  background: #121212;
+  border-radius: var(--radius);
+  padding: 22px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.product-image-box {
+  flex: 1;
+  min-width: 280px;
+}
+
+.product-image-box img {
+  width: 100%;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
+
+.product-info-box {
+  flex: 1;
+  min-width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.product-title {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.product-description {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.product-price {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 26px;
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.product-price img {
+  width: 40px;
+}
+
+.buy-btn {
+  padding: 12px 20px;
+  background: linear-gradient(90deg, var(--accent), #85751e);
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  transition: .2s;
+}
+
+.buy-btn:hover {
+  opacity: 0.85;
+}
+</style>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pedido Confirmado — Storecraft</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <audio id="bgm" hidden></audio>
+
+  <header>
+    <div class="logo">
+      <div class="brand"><img src="css/ChatGPT Image 1 de dez. de 2025, 20_11_01.png" width="50px" height="50px"></div>
+      <div>
+        <div style="font-size:14px; opacity:0.9">STORECRAFT</div>
+        <div style="font-size:12px; color:var(--muted)">Compras com segurança</div>
+      </div>
+    </div>
+
+    <div class="search-bar">
+      <input id="searchInput" type="text" placeholder="Buscar produtos...">
+      <button onclick="buscarProduto()">Buscar</button>
+    </div>
+
+    <div class="icons">
+      <a class="icon-btn" href="usuario.html">👤 Conta</a>
+      <a class="icon-btn" href="carrinho.html">🛒 Carrinho</a>
+      <a class="icon-btn" href="index.html"> 🏠 Home</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section style="margin-top:24px;text-align:center;">
+      <h1>Pedido Confirmado 🎉</h1>
+      <p id="orderInfo" style="margin-top:10px;color:var(--muted)"></p>
+
+      <div style="margin-top:20px;">
+        <a class="buy-btn" href="index.html">Voltar para a loja</a>
+      </div>
+    </section>
+
+    <footer>© 2025 Storecraft — Design atualizado</footer>
+  </main>
+
+  <script src="js/script.js"></script>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const orderId = params.get('order');
+    const orders = JSON.parse(localStorage.getItem('orders_v1')||'[]');
+    const order = orders.find(o => o.id === orderId);
+    if(order){
+      document.getElementById('orderInfo').innerText = `Pedido ${order.id} — Total R$: ${order.total.toFixed(2)}. Enviaremos atualizações pelo telefone ${order.telefone}.`;
+    } else {
+      document.getElementById('orderInfo').innerText = 'Seu pedido foi registrado. Obrigado pela compra!';
+    }
+    updateCartCount();
+  </script>
+  <script src="js/music.js"></script>
+
+</body>
+</html>
