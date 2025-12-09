@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body style="margin:0; background:transparent;">
+
+  <audio id="bgm" autoplay>
+    <source id="trackSource" src="audio/msc1.mp4" type="audio/mp4">
+    <source id="trackSource" src="audio/msc2.mp4" type="audio/mp4">
+  </audio>
+
+  <script>
+    const playlist = [
+      "audio/msc1.mp4",
+      "audio/msc2.mp4"
+    ];
+
+    const audio = document.getElementById("bgm");
+    const source = document.getElementById("trackSource");
+
+    let index = 0;
+
+    // Quando a música terminar, troca para a próxima
+    audio.addEventListener("ended", () => {
+      index = (index + 1) % playlist.length;  
+      source.src = playlist[index];
+      audio.load();
+      audio.play();
+    });
+
+    // Começa sempre com a primeira música
+    audio.play();
+  </script>
+
+</body>
+</html>

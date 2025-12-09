@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Storecraft</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <iframe src="player.html"
+    style="position:fixed; bottom:0; left:0; width:1px; height:1px; border:none; opacity:0; pointer-events:none; z-index:-9999;"></iframe>
+  <audio id="bgm" hidden></audio>
+
+  <header>
+    <div class="logo">
+      <div class="brand">
+        <img src="css/storecraft.png" width="50" height="50" alt="logo">
+      </div>
+      <div>
+        <div style="font-size:14px; opacity:0.9">STORECRAFT</div>
+        <div style="font-size:12px; color:var(--muted)">Compras com segurança</div>
+      </div>
+    </div>
+
+    <div class="search-bar">
+      <input id="searchInput" type="text" placeholder="Buscar produtos...">
+      <button onclick="buscarProduto()">Buscar</button>
+    </div>
+
+    <div class="icons">
+      <a class="icon-btn" href="indexusuario.html">👤 Conta</a>
+      <a class="icon-btn" href="indexcarrinho.html">🛒 Carrinho (<span id="cartCount">0</span>)</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="nav prev" onclick="prevSlide()">&#10094;</div>
+      <img src="img/img1.png" class="slide active" alt="slide 1">
+      <img src="img/img2.png" class="slide" alt="slide 2">
+      <img src="img/img3.png" class="slide" alt="slide 3">
+      <div class="nav next" onclick="nextSlide()">&#10095;</div>
+    </section>
+
+    <nav class="categories">
+      <a class="cat" href="categoria.html?cat=cap">Cap</a>
+      <a class="cat" href="categoria.html?cat=escudo">Escudo</a>
+      <a class="cat" href="categoria.html?cat=armor">Armor</a>
+      <a class="cat" href="categoria.html?cat=leg">Leg</a>
+      <a class="cat" href="categoria.html?cat=boots">Boots</a>
+      <a class="cat" href="categoria.html?cat=sword">Sword</a>
+      <a class="cat" href="categoria.html?cat=archer">Archer</a>
+      <a class="cat" href="categoria.html?cat=pet">Pet</a>
+      <a class="cat" href="categoria.html?cat=books">Books</a>
+      <a class="cat" href="categoria.html?cat=ring">Item Mágico</a>
+    </nav>
+
+    <section id="productsGrid" class="grid" style="margin-top:22px;"></section>
+
+    <footer>© 2025 StoreCraft — ItensMedievais</footer>
+  </main>
+
+  <script src="js/script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // inicializa slides quando o DOM estiver pronto
+      let slideIndex = 0;
+      const slides = document.querySelectorAll('.hero .slide');
+
+      function showSlide(index) {
+        slides.forEach((slide, i) => {
+          slide.classList.toggle('active', i === index);
+        });
+      }
+
+      function nextSlide() {
+        slideIndex = (slideIndex + 1) % slides.length;
+        showSlide(slideIndex);
+      }
+
+      function prevSlide() {
+        slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+        showSlide(slideIndex);
+      }
+
+      // conecta os botões (se preferir, pode manter os onclick inline no HTML)
+      const prevBtn = document.querySelector('.hero .nav.prev');
+      const nextBtn = document.querySelector('.hero .nav.next');
+      if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+      if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+
+      // troca automática
+      setInterval(nextSlide, 4000);
+
+      // restante da inicialização (render de produtos etc.)
+      const destaque = document.getElementById('productsGrid');
+      if (destaque && typeof PRODUCTS !== 'undefined') {
+        destaque.innerHTML = PRODUCTS.slice(0, 9).map(p => `
+      <div class="card" onclick="location.href='produto.html?id=${p.id}'">
+        <img src="${p.img}" alt="${p.title}">
+        <div class="title">${p.title}</div>
+        <div class="price"><img src="https://iili.io/HRYT1UP.png" alt=""> R$ ${p.price.toFixed(2)}</div>
+        <div style="display:flex;gap:8px;margin-top:8px;">
+          <button class="buy-btn" onclick="event.stopPropagation(); addToCart('${p.id}')">Adicionar</button>
+          <a class="icon-btn" style="text-decoration:none" href="produto.html?id=${p.id}">Ver</a>
+        </div>
+      </div>
+    `).join('');
+      }
+
+      if (typeof initCommon === 'function') initCommon();
+    });
+  </script>
+
+</body>
+
+</html>
